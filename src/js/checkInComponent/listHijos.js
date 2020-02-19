@@ -27,7 +27,7 @@ export class ListHijos extends React.Component {
 														</div>
 													</div>
 													<div className="col-3 mx-0 px-0">
-														{item.fullClassroom ? (
+														{item.fullClassroom || item.fullClassroom2 ? (
 															<div />
 														) : (
 															<input
@@ -43,6 +43,16 @@ export class ListHijos extends React.Component {
 													<div className="alert alert-success" role="alert">
 														<p className="text-center my-auto">
 															<strong>¡¡¡ESTOY DE CUMPLEAÑOSSSSSSS!!!</strong>
+														</p>
+													</div>
+												)}
+												{!!item.noClassroomAge && (
+													<div className="alert alert-danger" role="alert">
+														<p className="text-center my-auto">
+															<strong>
+																¡¡¡ Upss. Ho hay aulas habilidadas para la edad de este
+																niñ@!!!
+															</strong>
 														</p>
 													</div>
 												)}

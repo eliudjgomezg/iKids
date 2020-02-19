@@ -8,7 +8,7 @@ export class AddHijos extends React.Component {
 				{({ store, actions }) => {
 					return (
 						<Fragment>
-							<form onSubmit={e => actions.setHijo(e)}>
+							<form onSubmit={e => actions.verifySon(e)}>
 								<p>Agregar Hijos</p>
 								<div className="card card-body  py-2">
 									<div className="container">
@@ -64,6 +64,13 @@ export class AddHijos extends React.Component {
 											</button>
 										</div>
 									</div>
+									{!!store.maxParents && (
+										<div className="alert alert-danger mt-3">
+											<p className="text-center">
+												<strong>Solo puedes agregar un maximo de 10 Hij@s </strong>
+											</p>
+										</div>
+									)}
 								</div>
 							</form>
 						</Fragment>

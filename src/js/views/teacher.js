@@ -90,6 +90,15 @@ export class Teacher extends React.Component {
 														<p className="text-center">Usuario editado correctamente</p>
 													</div>
 												)}
+												{!!store.existingRol && (
+													<div className="alert alert-danger mt-3">
+														<p className="text-center">
+															<strong>Rut o Email asignando a otr@ usuari@.</strong>
+															¡¡¡IMPORTANTE!!!: El Rut y Email son unicos. No se puede
+															registrar dos usuari@s con el mismo rut o Email.
+														</p>
+													</div>
+												)}
 												<p className="mb-0">
 													<strong>Editar Usuari@</strong>
 												</p>
@@ -114,10 +123,11 @@ export class Teacher extends React.Component {
 												donde es necesario su testeo por parte del publico en general para la
 												correccion de errores que no es posible detectarlos en el ambiente
 												controlado de un laboratorio. Por esta razon te insto a que si detectas
-												algun error, describen cuando y como ocurrio. De ser posible envia
+												algun error, describeme cuando y como ocurrio. De ser posible envia
 												capturas de pantalla para ayudarnos a corregirlo a la brevedad posible.
-												Atentmente, Equipo de desarrollo iKids Version 1.0Beta
+												Atentmente, Equipo de desarrollo iKids
 											</p>
+											<p>Version 1.0Beta</p>
 											<a className="btn btn-primary container" href="mailto:eliud@autobots.cl">
 												Reportar error
 											</a>

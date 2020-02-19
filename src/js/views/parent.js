@@ -95,18 +95,18 @@ export class Parent extends React.Component {
 												</div>
 											</div>
 
-											<div className="card card-body py-2">
-												<div className="row">
-													<div className="col-6 justify-content-center">
+											<div className="card card-body py-2 px-0">
+												<div className="row px-0 mx-0">
+													<div className="col-6 ml-0 pl-0">
 														<button
-															className="btn btn-primary"
+															className="btn btn-primary ml-2 "
 															onClick={e => actions.editNewApoderados(e)}>
 															Editar Apoderados
 														</button>
 													</div>
-													<div className="col-6 justify-content-center">
+													<div className="col-6 mr-0">
 														<button
-															className="btn btn-primary"
+															className="btn btn-primary  ml-2"
 															onClick={e => actions.editNewHijo(e)}>
 															Editar Hijos
 														</button>
@@ -159,6 +159,15 @@ export class Parent extends React.Component {
 													<p className="text-center">Usuario editado correctamente</p>
 												</div>
 											)}
+											{!!store.existingRol && (
+												<div className="alert alert-danger mt-3">
+													<p className="text-center">
+														<strong>Email asignando a otr@ usuari@.</strong>
+														¡¡¡IMPORTANTE!!!: Tu Email es unicos. No se puede registrar dos
+														usuari@s con el mismo Email.
+													</p>
+												</div>
+											)}
 											<div className="card card-body mt-2 px-1">
 												<p className="ml-3 mb-0">
 													<strong>Editar Perfil</strong>
@@ -171,7 +180,7 @@ export class Parent extends React.Component {
 													className="btn btn-primary float-right mt-2 mr-5 "
 													data-toggle="modal"
 													data-target="#exampleModal2"
-													onClick={e => actions.logedEditRol(e)}>
+													onClick={e => actions.logedEditParent(e)}>
 													Aceptar
 												</button>
 											</div>

@@ -154,7 +154,12 @@ const getState = ({ getStore, setStore, getActions }) => {
 			userEdited: false,
 			existingRut: false,
 			existingRol: false,
-			reportar: false
+			reportar: false,
+			noClassroomAge: false,
+			betaTest: false,
+			disabledSaveParent: false,
+			maxParents: false,
+			verifyParent: false
 		},
 
 		actions: {
@@ -209,7 +214,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 							sDayUse: false,
 							editstartAgeRank: "",
 							editfinaltAgeRank: "",
-							reportar: false
+							reportar: false,
+							disabledSaveParent: false,
+							maxParents: false,
+							verifyParent: false
 						});
 						actions.deleteAddHijo();
 						actions.deleteAddApoderado();
@@ -288,7 +296,11 @@ const getState = ({ getStore, setStore, getActions }) => {
 							alert: false,
 							editstartAgeRank: "",
 							editfinaltAgeRank: "",
-							reportar: false
+							reportar: false,
+							existingRol: false,
+							disabledSaveParent: false,
+							maxParents: false,
+							verifyParent: false
 						});
 						actions.deleteAddHijo();
 						actions.deleteAddApoderado();
@@ -340,7 +352,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 							sDayUse: false,
 							editstartAgeRank: "",
 							editfinaltAgeRank: "",
-							reportar: false
+							reportar: false,
+							disabledSaveParent: false,
+							maxParents: false,
+							verifyParent: false
 						});
 						actions.deleteAddHijo();
 						actions.deleteAddApoderado();
@@ -365,9 +380,6 @@ const getState = ({ getStore, setStore, getActions }) => {
 					})
 					.then(data => {
 						console.log(data);
-						let usuarios = data.filter(
-							d => d.rol === "Administrador" || d.rol === "Profesor" || d.rol === "Check In"
-						);
 
 						setStore({
 							dashboard: false,
@@ -383,7 +395,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 							editNewFamilia: false,
 							goBackNewFamily: false,
 							goBackEditFamily: false,
-							usuarios,
+							usuarios: data,
 							hijos: [],
 							apoderados: [],
 							selectRol: false,
@@ -394,7 +406,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 							alert: false,
 							editstartAgeRank: "",
 							editfinaltAgeRank: "",
-							reportar: false
+							reportar: false,
+							disabledSaveParent: false,
+							maxParents: false,
+							verifyParent: false
 						});
 						actions.deleteAddHijo();
 						actions.deleteAddApoderado();
@@ -446,14 +461,16 @@ const getState = ({ getStore, setStore, getActions }) => {
 								checkIn: true,
 								novedades: false,
 								configCheckIn: false,
-								reportar: false
+								reportar: false,
+								existingRol: false
 							});
 						} else {
 							setStore({
 								checkIn: true,
 								novedades: false,
 								configCheckIn: false,
-								noClassroom: true
+								noClassroom: true,
+								existingRol: false
 							});
 						}
 						actions.deleteConfigCheckin();
@@ -477,6 +494,9 @@ const getState = ({ getStore, setStore, getActions }) => {
 					addApoderado: false,
 					addHijo: false,
 					reportar: false,
+					disabledSaveParent: false,
+					maxParents: false,
+					verifyParent: false,
 					usuario: {
 						id: store.usuarioLoged.id,
 						name: store.usuarioLoged.name,
@@ -668,7 +688,8 @@ const getState = ({ getStore, setStore, getActions }) => {
 					cardEdited: true,
 					selectUSuarios: [],
 					carddashboard: true,
-					formModalDashboard: false
+					formModalDashboard: false,
+					alert: false
 				});
 			},
 			selectedTeachersOut: e => {
@@ -827,7 +848,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 				apoderado[name] = value;
 				setStore({
 					apoderado,
-					existingRut: false
+					existingRut: false,
+					disabledSaveParent: false,
+					verifyParent: false,
+					maxParents: false
 				});
 			},
 			handleChangeHijo: e => {
@@ -837,7 +861,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 				hijo[name] = value;
 				setStore({
 					hijo,
-					alertt: false
+					alertt: false,
+					disabledSaveParent: false,
+					verifyParent: false,
+					maxParents: false
 				});
 			},
 			//Funciones para crear, editar y eliminar apoderado
@@ -858,7 +885,11 @@ const getState = ({ getStore, setStore, getActions }) => {
 					.then(data => {
 						console.log(data);
 						if (data.length > 0) {
-							setStore({ existingRut: true });
+							setStore({
+								existingRut: true,
+								disabledSaveParent: false,
+								verifyParent: false
+							});
 						} else {
 							actions.setApoderado();
 						}
@@ -871,6 +902,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 
 			setApoderado: e => {
 				const store = getStore();
+				const actions = getActions();
 				if (store.cardEdited) {
 					fetch("http://localhost:3000/api/v1/parents", {
 						method: "POST",
@@ -906,7 +938,9 @@ const getState = ({ getStore, setStore, getActions }) => {
 									phone: "",
 									id: ""
 								},
-								apoderados
+								apoderados,
+								disabledSaveParent: false,
+								verifyParent: false
 							});
 
 							//this will print on the console the exact object received from the server
@@ -947,10 +981,35 @@ const getState = ({ getStore, setStore, getActions }) => {
 								cardEdited: true,
 								id: "",
 								index: "",
-								apoderados
+								apoderados,
+								disabledSaveParent: false,
+								verifyParent: false
 							});
 						});
 				}
+			},
+			verifyParent: () => {
+				const store = getStore();
+				fetch("http://localhost:3000/api/v1/verifyParent/" + store.familyId, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						"access-token": store.usuarioLoged.token
+					}
+				})
+					.then(resp => {
+						return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+					})
+					.then(data => {
+						console.log(data);
+						data
+							? setStore({ disabledSaveParent: true, verifyParent: true })
+							: setStore({ maxParents: true });
+					})
+					.catch(error => {
+						//error handling
+						console.log(error);
+					});
 			},
 			editApoderado: (item, i) => {
 				// Boton de editar: Toma el valos del Item correspondiente
@@ -982,7 +1041,12 @@ const getState = ({ getStore, setStore, getActions }) => {
 					id: "",
 					index: "",
 					area: "+56",
-					existingRut: false
+					existingRut: false,
+					disabledSaveParent: false,
+					verifyParent: false,
+					disabledSaveParent: false,
+					maxParents: false,
+					verifyParent: false
 				});
 			},
 			deleteApoderado: index => {
@@ -1014,7 +1078,6 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 
 			setHijo: e => {
-				e.preventDefault();
 				const store = getStore();
 				if (store.cardEdited) {
 					fetch("http://localhost:3000/api/v1/sons", {
@@ -1108,6 +1171,29 @@ const getState = ({ getStore, setStore, getActions }) => {
 						});
 				}
 			},
+			verifySon: e => {
+				e.preventDefault();
+				const store = getStore();
+				const actions = getActions();
+				fetch("http://localhost:3000/api/v1/verifySon/" + store.familyId, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						"access-token": store.usuarioLoged.token
+					}
+				})
+					.then(resp => {
+						return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+					})
+					.then(data => {
+						console.log(data);
+						data ? actions.setHijo() : setStore({ maxParents: true });
+					})
+					.catch(error => {
+						//error handling
+						console.log(error);
+					});
+			},
 			editHijo: (item, i) => {
 				setStore({
 					id: item._id,
@@ -1133,7 +1219,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 					id: "",
 					index: "",
 					alertt: false,
-					existingRut: false
+					existingRut: false,
+					disabledSaveParent: false,
+					verifyParent: false,
+					maxParents: false
 				});
 			},
 			deleteHijo: index => {
@@ -1424,31 +1513,67 @@ const getState = ({ getStore, setStore, getActions }) => {
 				const store = getStore();
 				const actions = getActions();
 
-				fetch(
-					"http://localhost:3000/api/v1/existingRutEmail/" + store.usuario.email + "/" + store.usuario.rut,
-					{
-						method: "GET",
-						headers: {
-							"Content-Type": "application/json",
-							"access-token": store.usuarioLoged.token
+				if (store.id === null) {
+					fetch(
+						"http://localhost:3000/api/v1/existingRutEmail/" +
+							store.usuario.email +
+							"/" +
+							store.usuario.rut,
+						{
+							method: "GET",
+							headers: {
+								"Content-Type": "application/json",
+								"access-token": store.usuarioLoged.token
+							}
 						}
-					}
-				)
-					.then(resp => {
-						return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
-					})
-					.then(data => {
-						console.log(data);
-						if (data.length > 0) {
-							setStore({ existingRol: true });
-						} else {
-							actions.setUsuarios();
+					)
+						.then(resp => {
+							return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+						})
+						.then(data => {
+							console.log(data);
+							if (data.length > 0) {
+								setStore({ existingRol: true });
+							} else {
+								actions.setUsuarios();
+							}
+						})
+						.catch(error => {
+							//error handling
+							console.log(error);
+						});
+				} else {
+					fetch(
+						"http://localhost:3000/api/v1/existingRutEmailId/" +
+							store.usuario.email +
+							"/" +
+							store.usuario.rut +
+							"/" +
+							store.id,
+						{
+							method: "GET",
+							headers: {
+								"Content-Type": "application/json",
+								"access-token": store.usuarioLoged.token
+							}
 						}
-					})
-					.catch(error => {
-						//error handling
-						console.log(error);
-					});
+					)
+						.then(resp => {
+							return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+						})
+						.then(data => {
+							console.log(data);
+							if (data.length > 0) {
+								setStore({ existingRol: true });
+							} else {
+								actions.setUsuarios();
+							}
+						})
+						.catch(error => {
+							//error handling
+							console.log(error);
+						});
+				}
 			},
 			setUsuarios: e => {
 				const store = getStore();
@@ -1906,7 +2031,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 						phone: ""
 					},
 					hijos: [],
-					apoderdos: []
+					apoderdos: [],
+					disabledSaveParent: false,
+					maxParents: false,
+					verifyParent: false
 				});
 			},
 			addApoderado: e => {
@@ -1995,7 +2123,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 						birthDate: "",
 						notes: ""
 					},
-					alertt: false
+					alertt: false,
+					disabledSaveParent: false,
+					verifyParent: false,
+					maxParents: false
 				});
 			},
 			editNewHijo: e => {
@@ -2011,7 +2142,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 						parentName: "",
 						rut: "",
 						email: "",
-						phone: ""
+						phone: "",
+						disabledSaveParent: false,
+						verifyParent: false,
+						maxParents: false
 					}
 				});
 			},
@@ -2020,6 +2154,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 				e.preventDefault();
 				const store = getStore();
 				const actions = getActions();
+				setStore({ betaTest: false });
 				if (store.checked) {
 					actions.loginApoderados(e, history);
 				} else actions.loginUsuarios(e, history);
@@ -2167,7 +2302,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 									sDay = "domingo";
 								}
 
-								if (data.rol.dayUse.toLowerCase() === sDay) {
+								if (data.rol.dayUse.toLowerCase() === sDay && data.rol.classrooms != null) {
 									history.push("/teachers");
 									actions.classroom();
 								} else setStore({ noTeacherDayWork: true });
@@ -2229,7 +2364,8 @@ const getState = ({ getStore, setStore, getActions }) => {
 					alert: false,
 					noTeacherDayWork: false,
 					sDayUse: false,
-					registedFamily: false
+					registedFamily: false,
+					betaTest: false
 				});
 			},
 			//Funciones pra modulo CheckIn
@@ -2289,7 +2425,9 @@ const getState = ({ getStore, setStore, getActions }) => {
 							parentName: item.parentName,
 							parentsList: item.parentsList,
 							parentRut: item.parentRut,
-							fullClassroom: item.fullClassroom
+							fullClassroom: item.fullClassroom,
+							noClassroomAge: item.noClassroomAge,
+							fullClassroom2: item.fullClassroom2
 						};
 						sonToClassroom.push(son);
 						setStore({ sonToClassroom });
@@ -2323,12 +2461,12 @@ const getState = ({ getStore, setStore, getActions }) => {
 						setStore({ hijos, status: false });
 					}
 				} else {
+					console.log("checked falseeeeeeeeeeeeeee");
 					let sonToClassroom = store.sonToClassroom;
 					let foo = sonToClassroom.filter(f => f.id != item.id);
 					let hijos = store.hijos;
-					hijos.map(h => ((h.fullClassroom = false), (h.status = false)));
-					console.log(hijos);
-
+					hijos.map(h => (h["fullClassroom"] = false));
+					console.log("retira al niño del array");
 					fetch("http://localhost:3000/api/v1/classroomPutAssintance/" + item.classroomId, {
 						method: "PUT",
 						body: JSON.stringify({
@@ -2345,8 +2483,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 						.then(data => {
 							//here is were your code should start after the fetch finishes
 							console.log(data);
-							actions.checkIn();
 							setStore({ status: false, sonToClassroom: foo, hijos });
+							console.log("pasa status a false");
+							actions.checkIn();
+							console.log("hace checkin");
 						})
 						.catch(error => {
 							//error handling
@@ -2386,7 +2526,93 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 			logedEditRol: e => {
 				const store = getStore();
-				fetch("http://localhost:3000/api/v1/rol/" + store.usuario.id, {
+				fetch(
+					"http://localhost:3000/api/v1/rolView/" +
+						store.usuario.id +
+						"/" +
+						store.usuario.rut +
+						"/" +
+						store.usuario.email,
+					{
+						method: "PUT",
+						body: JSON.stringify({
+							name: store.usuario.name,
+							rut: store.usuario.rut,
+							email: store.usuario.email,
+							rol: store.usuario.rol,
+							phone: store.usuario.phone,
+							password: store.usuario.password,
+							classrooms: store.usuario.classrooms,
+							startScheduleRank: store.usuario.startScheduleRank,
+							classroomName: store.usuario.classroomName,
+							finalScheduleRank: store.usuario.finalScheduleRank,
+							startScheduleRank: store.usuario.startScheduleRank,
+							dayUse: store.usuario.dayUse
+						}),
+						headers: {
+							"Content-Type": "application/json",
+							"access-token": store.usuarioLoged.token
+						}
+					}
+				)
+					.then(resp => {
+						return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+					})
+					.then(data => {
+						//here is were your code should start after the fetch finishes
+						console.log(data);
+						if (data != false) {
+							setStore({
+								usuario: {
+									id: data._id,
+									name: data.name,
+									rut: data.rut,
+									email: data.email,
+									rol: data.rol,
+									phone: data.phone,
+									password: data.password,
+									rPassword: data.password,
+									classrooms: data.classrooms,
+									startScheduleRank: data.startScheduleRank,
+									classroomName: data.classroomName,
+									finalScheduleRank: data.finalScheduleRank,
+									startScheduleRank: data.startScheduleRank,
+									dayUse: data.dayUse,
+									classroomName: data.classroomName,
+									family: data.family,
+									token: store.usuarioLoged
+								},
+								usuarioLoged: {
+									id: data._id,
+									name: data.name,
+									rut: data.rut,
+									email: data.email,
+									rol: data.rol,
+									phone: data.phone,
+									password: data.password,
+									rPassword: data.password,
+									classrooms: data.classrooms,
+									startScheduleRank: data.startScheduleRank,
+									classroomName: data.classroomName,
+									finalScheduleRank: data.finalScheduleRank,
+									startScheduleRank: data.startScheduleRank,
+									dayUse: data.dayUse,
+									classroomName: data.classroomName,
+									family: data.family,
+									token: store.usuarioLoged.token
+								},
+								userEdited: true,
+								existingRol: false
+							});
+							setTimeout(() => setStore({ userEdited: false }), 2000);
+						} else {
+							setStore({ existingRol: true });
+						}
+					});
+			},
+			logedEditParent: e => {
+				const store = getStore();
+				fetch("http://localhost:3000/api/v1/parentView/" + store.usuario.id + "/" + store.usuario.email, {
 					method: "PUT",
 					body: JSON.stringify({
 						name: store.usuario.name,
@@ -2412,49 +2638,54 @@ const getState = ({ getStore, setStore, getActions }) => {
 					})
 					.then(data => {
 						//here is were your code should start after the fetch finishes
-						console.log(data); //this will print on the console the exact object received from the server
-						setStore({
-							usuario: {
-								id: data._id,
-								name: data.name,
-								rut: data.rut,
-								email: data.email,
-								rol: data.rol,
-								phone: data.phone,
-								password: data.password,
-								rPassword: data.password,
-								classrooms: data.classrooms,
-								startScheduleRank: data.startScheduleRank,
-								classroomName: data.classroomName,
-								finalScheduleRank: data.finalScheduleRank,
-								startScheduleRank: data.startScheduleRank,
-								dayUse: data.dayUse,
-								classroomName: data.classroomName,
-								family: data.family,
-								token: store.usuarioLoged
-							},
-							usuarioLoged: {
-								id: data._id,
-								name: data.name,
-								rut: data.rut,
-								email: data.email,
-								rol: data.rol,
-								phone: data.phone,
-								password: data.password,
-								rPassword: data.password,
-								classrooms: data.classrooms,
-								startScheduleRank: data.startScheduleRank,
-								classroomName: data.classroomName,
-								finalScheduleRank: data.finalScheduleRank,
-								startScheduleRank: data.startScheduleRank,
-								dayUse: data.dayUse,
-								classroomName: data.classroomName,
-								family: data.family,
-								token: store.usuarioLoged.token
-							},
-							userEdited: true
-						});
-						setTimeout(() => setStore({ userEdited: false }), 2000);
+						console.log(data);
+						if (data != false) {
+							setStore({
+								usuario: {
+									id: data._id,
+									name: data.name,
+									rut: data.rut,
+									email: data.email,
+									rol: data.rol,
+									phone: data.phone,
+									password: data.password,
+									rPassword: data.password,
+									classrooms: data.classrooms,
+									startScheduleRank: data.startScheduleRank,
+									classroomName: data.classroomName,
+									finalScheduleRank: data.finalScheduleRank,
+									startScheduleRank: data.startScheduleRank,
+									dayUse: data.dayUse,
+									classroomName: data.classroomName,
+									family: data.family,
+									token: store.usuarioLoged
+								},
+								usuarioLoged: {
+									id: data._id,
+									name: data.name,
+									rut: data.rut,
+									email: data.email,
+									rol: data.rol,
+									phone: data.phone,
+									password: data.password,
+									rPassword: data.password,
+									classrooms: data.classrooms,
+									startScheduleRank: data.startScheduleRank,
+									classroomName: data.classroomName,
+									finalScheduleRank: data.finalScheduleRank,
+									startScheduleRank: data.startScheduleRank,
+									dayUse: data.dayUse,
+									classroomName: data.classroomName,
+									family: data.family,
+									token: store.usuarioLoged.token
+								},
+								userEdited: true,
+								existingRol: false
+							});
+							setTimeout(() => setStore({ userEdited: false }), 2000);
+						} else {
+							setStore({ existingRol: true });
+						}
 					});
 			},
 			capacityClassroon: () => {
@@ -2511,7 +2742,8 @@ const getState = ({ getStore, setStore, getActions }) => {
 							classroom: true,
 							novedades: false,
 							configCheckIn: false,
-							reportar: false
+							reportar: false,
+							existingRol: false
 						});
 						actions.capacityClassroon();
 					})
@@ -2933,7 +3165,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					body: JSON.stringify({
 						email: store.usuario.email,
 						password: store.usuario.password,
-						rol: "Apoderado",
+						rol: "Familia",
 						familyName: store.usuario.name
 					}),
 					headers: {
@@ -2981,18 +3213,40 @@ const getState = ({ getStore, setStore, getActions }) => {
 					sDayUse: false,
 					registedFamily: false,
 					noTeacherDayWork: false,
-					status: false
+					status: false,
+					betaTest: false
 				});
 			},
 			goRegister: (e, history) => {
-				history.push("/createFamily");
-				setStore({
-					alert: false,
-					sDayUse: false,
-					registedFamily: false,
-					noTeacherDayWork: false,
-					status: false
-				});
+				fetch("http://localhost:3000/api/v1/limitedSesions/", {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json"
+					}
+				})
+					.then(resp => {
+						return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+					})
+					.then(data => {
+						console.log(data);
+						if (data) {
+							history.push("/createFamily");
+							setStore({
+								alert: false,
+								sDayUse: false,
+								registedFamily: false,
+								noTeacherDayWork: false,
+								status: false,
+								betaTest: false
+							});
+						} else {
+							setStore({ betaTest: true });
+						}
+					})
+					.catch(error => {
+						//error handling
+						console.log(error);
+					});
 			},
 			reportError: e => {
 				setStore({

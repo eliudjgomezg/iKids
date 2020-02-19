@@ -51,12 +51,14 @@ export class Login extends React.Component {
 
 										<div className="text-right p-t-8 p-b-31">
 											<p className="parpadea">
-												<input
-													className="mt-2"
-													type="checkbox"
-													onChange={e => actions.check(e)}
-												/>{" "}
-												¡¡¡CLICK!!! para acceder como Apoderad@
+												<strong>
+													<input
+														className="mt-2"
+														type="checkbox"
+														onChange={e => actions.check(e)}
+													/>{" "}
+													¡¡¡CLICK!!! para acceder como Apoderad@
+												</strong>{" "}
 											</p>
 										</div>
 
@@ -96,11 +98,19 @@ export class Login extends React.Component {
 											</div>
 										)}
 										{!!store.noTeacherDayWork && (
-											<div className="form-left rounded-pill mt-3 px-5" style={style1}>
+											<div className="form-left card card-boby mt-3 px-2" style={style1}>
 												<p className="text-1 text-center" style={style2}>
 													¡¡¡Upsss no puedes iniciar sesion por dos razones: El dia de hoy no
-													te toca servir o no tienes dia servicio asignado en tu perfil.
-													Contacta al administraror de la app!!!
+													te toca servir y/o no tienes dia de servicio o aula asignada a tu
+													perfil. Contacta al administraror de la app !!!
+												</p>
+											</div>
+										)}
+										{!!store.betaTest && (
+											<div className="form-left rounded-pill  mt-3 py-0 px-1" style={style1}>
+												<p className="text-1 text-center" style={style2}>
+													¡¡¡La Version Beta de iKids por ahora solo permite la creacion de 50
+													familias.!!!
 												</p>
 											</div>
 										)}

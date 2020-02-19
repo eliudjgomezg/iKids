@@ -89,6 +89,15 @@ export class CheckIn extends React.Component {
 														<p className="text-center">Usuario editado correctamente</p>
 													</div>
 												)}
+												{!!store.existingRol && (
+													<div className="alert alert-danger mt-3">
+														<p className="text-center">
+															<strong>Rut o Email asignando a otr@ usuari@.</strong>
+															¡¡¡IMPORTANTE!!!: El Rut y Email son unicos. No se puede
+															registrar dos usuari@s con el mismo rut o Email.
+														</p>
+													</div>
+												)}
 												<p className="ml-3 mb-0">
 													<strong>Editar Perfil</strong>
 												</p>
@@ -118,7 +127,7 @@ export class CheckIn extends React.Component {
 												Atentmente, Equipo de desarrollo iKids Version 1.0Beta
 											</p>
 											<a className="btn btn-primary container" href="mailto:eliud@autobots.cl">
-												Reportar error
+												<p className="text-center">Reportar error</p>
 											</a>
 										</div>
 									)}

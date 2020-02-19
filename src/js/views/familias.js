@@ -68,7 +68,7 @@ export class Familias extends React.Component {
 							{!!store.alert && (
 								<div className="alert alert-danger" role="alert">
 									<h1 className="text-center m-0 p-0">
-										¡¡¡Upsss. Es necesario crear Aulas antes de crear familias!!!
+										¡¡¡Upsss. Es necesario crear Aulas antes de registrar familias!!!
 									</h1>
 								</div>
 							)}
@@ -117,31 +117,29 @@ export class Familias extends React.Component {
 								</div>
 							)}
 							{!!store.familyOptions && (
-								<div className="container">
-									<div className="card card-body py-2 mt-2">
-										<div className="row ">
-											<div className="col-6 justify-content-center">
-												<button
-													className="btn btn-primary"
-													onClick={e => actions.addApoderado(e)}>
-													Agregar Apoderados
-												</button>
-											</div>
-											<div className="col-6 justify-content-center">
-												<button className="btn btn-primary" onClick={e => actions.addHijo(e)}>
-													Agregar Hijos
-												</button>
-											</div>
+								<div className="card card-body py-2 mt-2 px-0">
+									<div className="row px-0 mx-0">
+										<div className="col-6 ml-0 pl-0">
+											<button
+												className="btn btn-primary ml-2"
+												onClick={e => actions.addApoderado(e)}>
+												Agregar Apoderados
+											</button>
 										</div>
-										{!!store.alertt && (
-											<div className="alert alert-danger" role="alert">
-												<p className="text-center m-0 p-0">
-													¡¡¡Upsss. Solo puedes agregar Hij@s con edades comprendidas entre{" "}
-													{store.startAgeRank} y {store.finaltAgeRank} años!!!
-												</p>
-											</div>
-										)}
+										<div className="col-6 mr-0">
+											<button className="btn btn-primary ml-2" onClick={e => actions.addHijo(e)}>
+												Agregar Hijos
+											</button>
+										</div>
 									</div>
+									{!!store.alertt && (
+										<div className="alert alert-danger" role="alert">
+											<p className="text-center m-0 p-0">
+												¡¡¡Upsss. Solo puedes agregar Hij@s con edades comprendidas entre{" "}
+												{store.startAgeRank} y {store.finaltAgeRank} años!!!
+											</p>
+										</div>
+									)}
 								</div>
 							)}
 							{!!store.familiasss && <FamiliasList />}
@@ -169,18 +167,18 @@ export class Familias extends React.Component {
 										</div>
 									</div>
 
-									<div className="card card-body py-2">
-										<div className="row">
-											<div className="col-6 justify-content-center">
+									<div className="card card-body py-2 px-0">
+										<div className="row px-0 mx-0">
+											<div className="col-6 ml-0 pl-0">
 												<button
-													className="btn btn-primary"
+													className="btn btn-primary ml-2"
 													onClick={e => actions.editNewApoderados(e)}>
 													Editar Apoderados
 												</button>
 											</div>
-											<div className="col-6 justify-content-center">
+											<div className="col-6 ">
 												<button
-													className="btn btn-primary"
+													className="btn btn-primary ml-2"
 													onClick={e => actions.editNewHijo(e)}>
 													Editar Hijos
 												</button>
