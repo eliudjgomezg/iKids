@@ -19,15 +19,15 @@ const injectContext = PassedComponent => {
 					this.setState({
 						store: Object.assign(this.state.store, updatedStore)
 					});
-					//localStorage.setItem("ikids-store", JSON.stringify(this.state.store));
+					localStorage.setItem("ikids-store", JSON.stringify(this.state.store));
 				}
 			});
 		}
 
 		componentDidMount() {
-			//const previusStore = localStorage.getItem("ikids-store");
-			//if (previusStore) this.setState({ store: JSON.parse(previusStore) });
-			//if (previusStore) this.setState({ store:{...this.state.store, usuarioLoged:JSON.parse(previusStore)} });
+			const previusStore = localStorage.getItem("ikids-store");
+			if (previusStore) this.setState({ store: JSON.parse(previusStore) });
+			//if (previusStore) this.setState({ store: { ...this.state.store, usuarioLoged: JSON.parse(previusStore) } });
 			/**
 			 console.log(JSON.parse(localStorage.getItem("ikids-store")));
 			 * EDIT THIS!

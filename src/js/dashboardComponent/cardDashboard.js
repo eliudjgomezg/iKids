@@ -85,7 +85,7 @@ export class Carddashboard extends React.Component {
 															</a>
 															<button
 																type="button"
-																className="btn btn-primary float-right mr-2"
+																className="btn btn-secondary float-right mr-2"
 																data-toggle="modal"
 																data-target="#exampleModal"
 																onClick={e => actions.indextodeleteClassroon(item)}>

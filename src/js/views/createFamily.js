@@ -9,13 +9,14 @@ export class CreateFamily extends React.Component {
 		let style2 = { color: "white" };
 		let style3 = { color: "#C408BC", width: "100%" };
 		let style4 = { backgroundColor: "#23D5F0" };
+		let style5 = { height: "480px" };
 		return (
 			<Context.Consumer>
 				{({ store, actions }) => {
 					return (
 						<div className="page-content " style={style4}>
-							<div className="form-v4-content createParent mt-3">
-								<div className="form-left " style={style1}>
+							<div className="form-v4-content createParent mt-3 heightPage">
+								<div className="form-left heightPage " style={style1}>
 									<h2>Estimad@ Apoderad@</h2>
 									<p className="text-1" style={style2}>
 										En el siguiente apartado, usted podra crear el perfil de su familia y de esta
@@ -28,7 +29,7 @@ export class CreateFamily extends React.Component {
 									</p>
 								</div>
 								<form
-									className="form-detail"
+									className="form-detail heightPage"
 									onSubmit={e => actions.createParentSession1(e, this.props.history)}>
 									<div className="container pl-0">
 										<div className="float-left">
@@ -55,6 +56,7 @@ export class CreateFamily extends React.Component {
 											onChange={e => actions.handleChangeUsuario(e)}
 											className="input-text"
 											required
+											maxLength="40"
 										/>
 									</div>
 									<div className="form-row">

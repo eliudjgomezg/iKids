@@ -32,6 +32,11 @@ export class Parent extends React.Component {
 										className="list-group-item list-group-item-action bg-light">
 										Editar Usuari@
 									</button>
+									<button
+										className="list-group-item list-group-item-action bg-light"
+										onClick={e => actions.reportError()}>
+										<strong>¡¡¡REPORTA ERRORES!!!</strong>
+									</button>
 								</div>
 							</div>
 
@@ -185,6 +190,20 @@ export class Parent extends React.Component {
 												</button>
 											</div>
 										</Fragment>
+									)}
+									{!!store.reportar && (
+										<div className="card card-body container mt-3">
+											<p className="text-center">
+												Hola, iKids se presenta temporalmente como una version de prueba y por
+												esta razon te insto a que si detectas algun error, describe cuando y
+												como ocurrio. De ser posible envia capturas de pantalla para ayudarnos a
+												corregirlo a la brevedad posible. Atentmente, Equipo de desarrollo iKids
+											</p>
+											<p className="text-center">iKids Version 1.0Beta</p>
+											<a className="btn btn-primary container" href="mailto:eliud@autobots.cl">
+												Reportar error
+											</a>
+										</div>
 									)}
 								</div>
 							</div>

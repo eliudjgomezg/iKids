@@ -30,6 +30,7 @@ export class Login extends React.Component {
 												value={store.login.rut}
 												name="rut"
 												placeholder="Escribe tu Usuario"
+												maxLength="30"
 											/>
 											<span className="focus-input100" data-symbol="&#xf206;" />
 										</div>
@@ -114,14 +115,23 @@ export class Login extends React.Component {
 												</p>
 											</div>
 										)}
-
+										{!!store.successRecovery && (
+											<div className="form-left rounded-pill  mt-3 py-0 px-1" style={style1}>
+												<p className="text-1 text-center" style={style2}>
+													¡¡¡Se ha enviado a tu correo electronico las credenciales de tu
+													perfil!!!
+												</p>
+											</div>
+										)}
 										<div className="flex-col-c p-t-50">
 											<a
-												to="#"
 												onClick={e => actions.goRegister(e, this.props.history)}
 												className="txt2">
 												Crea tu perfil como Apoderad@
 											</a>
+											<Link to="/forgotPasswoord" className="txt2 mt-2">
+												Recuperar contraseña
+											</Link>
 										</div>
 
 										<div className="txt1 text-center p-t-54 p-b-3">

@@ -8,6 +8,7 @@ import { Teacher } from "./views/teacher";
 import { CheckIn } from "./views/checkIn";
 import { Parent } from "./views/parent";
 import { CreateFamily } from "./views/createFamily";
+import { ForgotPasswoord } from "./views/forgotPasswoord";
 
 import injectContext, { Context } from "./store/appContext";
 
@@ -30,6 +31,7 @@ export class Layout extends React.Component {
 					<Route path="/checkIn" component={CheckIn} />
 					<Route path="/parent" component={Parent} />
 					<Route path="/createFamily" component={CreateFamily} />
+					<Route path="/forgotPasswoord" component={ForgotPasswoord} />
 					<Route render={() => <h1>Not found!</h1>} />
 				</Switch>
 			</BrowserRouter>

@@ -33,6 +33,7 @@ export class FormModalDashboard extends React.Component {
 												name="classroomName"
 												value={store.classroomName}
 												required
+												maxLength="30"
 											/>
 										</div>
 										<div className="form-group">
@@ -55,6 +56,9 @@ export class FormModalDashboard extends React.Component {
 																onChange={e => actions.getData(e)}
 																value={store.startAgeRank}
 																required
+																min="0"
+																max="20"
+																type="number"
 															/>
 														</div>
 
@@ -67,6 +71,9 @@ export class FormModalDashboard extends React.Component {
 																onChange={e => actions.getData(e)}
 																value={store.finaltAgeRank}
 																required
+																min="0"
+																max="20"
+																type="number"
 															/>
 														</div>
 													</div>
@@ -80,6 +87,9 @@ export class FormModalDashboard extends React.Component {
 														onChange={e => actions.getData(e)}
 														value={store.capacity}
 														required
+														min="0"
+														max="90"
+														type="number"
 													/>
 												</div>
 											</div>

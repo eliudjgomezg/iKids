@@ -21,6 +21,8 @@ export class AddHijos extends React.Component {
 												value={store.hijo.sonName}
 												name="sonName"
 												required
+												type="text"
+												maxLength="30"
 											/>
 										</div>
 										<div className="row">
@@ -45,6 +47,7 @@ export class AddHijos extends React.Component {
 												onChange={e => actions.handleChangeHijo(e)}
 												value={store.hijo.notes}
 												name="notes"
+												maxLength="500"
 												placeholder="Describa alguna condicion especial, enfermedad o lesion a considerar"
 											/>
 										</div>

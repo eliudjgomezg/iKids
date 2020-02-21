@@ -18,20 +18,19 @@ export class FamiliasList extends React.Component {
 												<div className="col-lg-3 col-sm-12">
 													<button
 														type="button"
-														className="btn btn-primary float-right mr-2 ml-2"
-														onClick={() => actions.indextodeleteClassroon(item, i)}
-														data-toggle="modal"
-														data-target="#exampleModal">
-														Eliminar
-													</button>
-
-													<button
-														type="button"
 														className="btn btn-primary float-right"
 														data-toggle="modal"
 														data-target="#exampleModal2"
 														onClick={e => actions.verFamilia(item, i)}>
 														Ver
+													</button>
+													<button
+														type="button"
+														className="btn btn-secondary float-right mr-2 ml-2"
+														onClick={() => actions.indextodeleteClassroon(item, i)}
+														data-toggle="modal"
+														data-target="#exampleModal">
+														Eliminar
 													</button>
 												</div>
 											</div>

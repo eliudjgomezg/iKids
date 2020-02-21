@@ -159,7 +159,9 @@ const getState = ({ getStore, setStore, getActions }) => {
 			betaTest: false,
 			disabledSaveParent: false,
 			maxParents: false,
-			verifyParent: false
+			verifyParent: false,
+			chooseRol: false,
+			url: "localhost:3000"
 		},
 
 		actions: {
@@ -168,7 +170,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 				const store = getStore();
 				const actions = getActions();
 				console.log(store.usuarioLoged.token);
-				fetch("http://localhost:3000/api/v1/classrooms", {
+				fetch("http://" + store.url + "/api/v1/classrooms", {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -232,7 +234,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 			formModalDashboard: e => {
 				const store = getStore();
-				fetch("http://localhost:3000/api/v1/roles", {
+				fetch("http://" + store.url + "/api/v1/roles", {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -255,7 +257,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			novedades: e => {
 				const store = getStore();
 				const actions = getActions();
-				fetch("http://localhost:3000/api/v1/news", {
+				fetch("http://" + store.url + "/api/v1/news", {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -314,7 +316,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			familias: e => {
 				const store = getStore();
 				const actions = getActions();
-				fetch("http://localhost:3000/api/v1/families", {
+				fetch("http://" + store.url + "/api/v1/families", {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -368,7 +370,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			roles: e => {
 				const store = getStore();
 				const actions = getActions();
-				fetch("http://localhost:3000/api/v1/roles", {
+				fetch("http://" + store.url + "/api/v1/roles", {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -442,7 +444,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			checkIn: e => {
 				const store = getStore();
 				const actions = getActions();
-				fetch("http://localhost:3000/api/v1/classrooms", {
+				fetch("http://" + store.url + "/api/v1/classrooms", {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -565,7 +567,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 				//Boton de guardar: Guarda una nueva aula en un card. Puede diferenciar entre editar
 				// un aula y guardar una nueva. Tamnien, verifica que los campos estes escritos
 				if (store.cardEdited) {
-					fetch("http://localhost:3000/api/v1/classrooms", {
+					fetch("http://" + store.url + "/api/v1/classrooms", {
 						method: "POST",
 						body: JSON.stringify({
 							classroomName: store.classroomName,
@@ -620,7 +622,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 							console.log(error);
 						});
 				} else {
-					fetch("http://localhost:3000/api/v1/classroom/" + store.id, {
+					fetch("http://" + store.url + "/api/v1/classroom/" + store.id, {
 						method: "PUT",
 						body: JSON.stringify({
 							classroomName: store.classroomName,
@@ -746,7 +748,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 				const store = getStore();
 				const actions = getActions();
 
-				fetch("http://localhost:3000/api/v1/classroom/" + store.id, {
+				fetch("http://" + store.url + "/api/v1/classroom/" + store.id, {
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json",
@@ -791,7 +793,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 				}
 
 				//Agrega la novedad al arreglo addNovedades
-				fetch("http://localhost:3000/api/v1/news", {
+				fetch("http://" + store.url + "/api/v1/news", {
 					method: "POST",
 					body: JSON.stringify({
 						name: store.usuarioLoged.name,
@@ -872,7 +874,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 				e.preventDefault();
 				const store = getStore();
 				const actions = getActions();
-				fetch("http://localhost:3000/api/v1/findExistingRut/" + store.apoderado.rut, {
+				fetch("http://" + store.url + "/api/v1/findExistingRut/" + store.apoderado.rut, {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -904,7 +906,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 				const store = getStore();
 				const actions = getActions();
 				if (store.cardEdited) {
-					fetch("http://localhost:3000/api/v1/parents", {
+					fetch("http://" + store.url + "/api/v1/parents", {
 						method: "POST",
 						body: JSON.stringify({
 							parentName: store.apoderado.parentName,
@@ -950,7 +952,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 							console.log(error);
 						});
 				} else {
-					fetch("http://localhost:3000/api/v1/parent/" + store.id, {
+					fetch("http://" + store.url + "/api/v1/parent/" + store.id, {
 						method: "PUT",
 						body: JSON.stringify({
 							parentName: store.apoderado.parentName,
@@ -990,7 +992,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 			verifyParent: () => {
 				const store = getStore();
-				fetch("http://localhost:3000/api/v1/verifyParent/" + store.familyId, {
+				fetch("http://" + store.url + "/api/v1/verifyParent/" + store.familyId, {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -1051,7 +1053,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 			deleteApoderado: index => {
 				const store = getStore();
-				fetch("http://localhost:3000/api/v1/parent/" + store.id, {
+				fetch("http://" + store.url + "/api/v1/parent/" + store.id, {
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json",
@@ -1080,7 +1082,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			setHijo: e => {
 				const store = getStore();
 				if (store.cardEdited) {
-					fetch("http://localhost:3000/api/v1/sons", {
+					fetch("http://" + store.url + "/api/v1/sons", {
 						method: "POST",
 						body: JSON.stringify({
 							sonName: store.hijo.sonName,
@@ -1129,7 +1131,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 							console.log(error);
 						});
 				} else {
-					fetch("http://localhost:3000/api/v1/son/" + store.id, {
+					fetch("http://" + store.url + "/api/v1/son/" + store.id, {
 						method: "PUT",
 						body: JSON.stringify({
 							sonName: store.hijo.sonName,
@@ -1175,7 +1177,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 				e.preventDefault();
 				const store = getStore();
 				const actions = getActions();
-				fetch("http://localhost:3000/api/v1/verifySon/" + store.familyId, {
+				fetch("http://" + store.url + "/api/v1/verifySon/" + store.familyId, {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -1228,7 +1230,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			deleteHijo: index => {
 				//Boton eliminar: Borra el aula seleccionada
 				const store = getStore();
-				fetch("http://localhost:3000/api/v1/son/" + store.id, {
+				fetch("http://" + store.url + "/api/v1/son/" + store.id, {
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json",
@@ -1279,7 +1281,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					store.familia.hijos.length > 0 &&
 					store.familia.familyName != ""
 				) {
-					fetch("http://localhost:3000/api/v1/families", {
+					fetch("http://" + store.url + "/api/v1/families", {
 						method: "POST",
 						body: JSON.stringify({
 							familyName: store.familia.familyName,
@@ -1325,7 +1327,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			verFamilia: item => {
 				const store = getStore();
 				setStore({ familyId: item._id });
-				fetch("http://localhost:3000/api/v1/parentEdit/" + store.familyId, {
+				fetch("http://" + store.url + "/api/v1/parentEdit/" + store.familyId, {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -1351,7 +1353,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 							goBackNewFamily: false,
 							goBackEditFamily: true
 						});
-						fetch("http://localhost:3000/api/v1/sonEdit/" + store.familyId, {
+						fetch("http://" + store.url + "/api/v1/sonEdit/" + store.familyId, {
 							method: "GET",
 							headers: {
 								"Content-Type": "application/json",
@@ -1401,7 +1403,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 			deleteNewFamilia: (e, item, i) => {
 				const store = getStore();
-				fetch("http://localhost:3000/api/v1/family/" + store.familyId, {
+				fetch("http://" + store.url + "/api/v1/family/" + store.familyId, {
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json",
@@ -1455,7 +1457,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 			deleteFamilia: (e, item, i) => {
 				const store = getStore();
-				fetch("http://localhost:3000/api/v1/family/" + store.id, {
+				fetch("http://" + store.url + "/api/v1/family/" + store.id, {
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json",
@@ -1487,7 +1489,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			//Funciones para creacion de profesores
 			setClassRoomInRole: () => {
 				const store = getStore();
-				fetch("http://localhost:3000/api/v1/classrooms", {
+				fetch("http://" + store.url + "/api/v1/classrooms", {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -1515,7 +1517,9 @@ const getState = ({ getStore, setStore, getActions }) => {
 
 				if (store.id === null) {
 					fetch(
-						"http://localhost:3000/api/v1/existingRutEmail/" +
+						"http://" +
+							store.url +
+							"/api/v1/existingRutEmail/" +
 							store.usuario.email +
 							"/" +
 							store.usuario.rut,
@@ -1544,7 +1548,9 @@ const getState = ({ getStore, setStore, getActions }) => {
 						});
 				} else {
 					fetch(
-						"http://localhost:3000/api/v1/existingRutEmailId/" +
+						"http://" +
+							store.url +
+							"/api/v1/existingRutEmailId/" +
 							store.usuario.email +
 							"/" +
 							store.usuario.rut +
@@ -1585,7 +1591,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 							if (store.usuario.classrooms === "" || store.usuario.classrooms === "Elige una opcion...") {
 								foo = null;
 							} else foo = store.usuario.classrooms;
-							fetch("http://localhost:3000/api/v1/roles", {
+							fetch("http://" + store.url + "/api/v1/roles", {
 								method: "POST",
 								body: JSON.stringify({
 									name: store.usuario.name,
@@ -1658,7 +1664,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 							if (store.usuario.classrooms === "" || store.usuario.classrooms === "Elige una opcion...") {
 								foo = null;
 							} else foo = store.usuario.classrooms;
-							fetch("http://localhost:3000/api/v1/rol/" + store.id, {
+							fetch("http://" + store.url + "/api/v1/rol/" + store.id, {
 								method: "PUT",
 								body: JSON.stringify({
 									name: store.usuario.name,
@@ -1736,7 +1742,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 					sDayUse: false,
 					alert: false,
 					status: false,
-					existingRol: false
+					existingRol: false,
+					successRecovery: false,
+					noEmail: false,
+					chooseRol: false
 				});
 			},
 			handleChangeUsuario2: e => {
@@ -1753,7 +1762,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 					sClassroom: false,
 					rol: false,
 					sDayUse: false,
-					existingRol: false
+					existingRol: false,
+					successRecovery: false,
+					noEmail: false,
+					chooseRol: false
 				});
 			},
 			handleChangeUsuario3: e => {
@@ -1766,7 +1778,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 					rol: false,
 					sClassroom: false,
 					sDayUse: false,
-					existingRol: false
+					existingRol: false,
+					successRecovery: false,
+					noEmail: false,
+					chooseRol: false
 				});
 			},
 			handleChangeUsuario4: e => {
@@ -1786,7 +1801,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 					rol: false,
 					sClassroom: false,
 					sDayUse: false,
-					existingRol: false
+					existingRol: false,
+					successRecovery: false,
+					noEmail: false,
+					chooseRol: false
 				});
 			},
 			deleteAddUsuarios: e => {
@@ -1820,7 +1838,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 				const store = getStore();
 				const actions = getActions();
 
-				fetch("http://localhost:3000/api/v1/rol/" + store.id, {
+				fetch("http://" + store.url + "/api/v1/rol/" + store.id, {
 					method: "DELETE",
 
 					headers: {
@@ -1880,7 +1898,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			filterByRole: e => {
 				const store = getStore();
 				let foo = e.target.name;
-				fetch("http://localhost:3000/api/v1/roles", {
+				fetch("http://" + store.url + "/api/v1/roles", {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -1902,7 +1920,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 			familyLastName: e => {
 				const store = getStore();
-				fetch("http://localhost:3000/api/v1/classrooms", {
+				fetch("http://" + store.url + "/api/v1/classrooms", {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -1954,7 +1972,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			addFamily: e => {
 				const store = getStore();
 				e.preventDefault();
-				fetch("http://localhost:3000/api/v1/families", {
+				fetch("http://" + store.url + "/api/v1/families", {
 					method: "POST",
 					body: JSON.stringify({
 						familyName: store.familyName
@@ -1994,7 +2012,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 			editFamilyName: e => {
 				const store = getStore();
-				fetch("http://localhost:3000/api/v1/family/" + store.familyId, {
+				fetch("http://" + store.url + "/api/v1/family/" + store.familyId, {
 					method: "PUT",
 					body: JSON.stringify({
 						familyName: store.familyName
@@ -2058,7 +2076,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 			goBack: e => {
 				const store = getStore();
-				fetch("http://localhost:3000/api/v1/families", {
+				fetch("http://" + store.url + "/api/v1/families", {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -2162,7 +2180,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			loginApoderados: (e, history) => {
 				const store = getStore();
 				const actions = getActions();
-				fetch("http://localhost:3000/api/v1/rolesLoginParent", {
+				fetch("http://" + store.url + "/api/v1/rolesLoginParent", {
 					method: "POST",
 					body: JSON.stringify({
 						rut: store.login.rut,
@@ -2229,7 +2247,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			loginUsuarios: (e, history) => {
 				const store = getStore();
 				const actions = getActions();
-				fetch("http://localhost:3000/api/v1/rolesLogin", {
+				fetch("http://" + store.url + "/api/v1/rolesLogin", {
 					method: "POST",
 					body: JSON.stringify({
 						rut: store.login.rut,
@@ -2365,7 +2383,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 					noTeacherDayWork: false,
 					sDayUse: false,
 					registedFamily: false,
-					betaTest: false
+					betaTest: false,
+					successRecovery: false,
+					noEmail: false,
+					chooseRol: false
 				});
 			},
 			//Funciones pra modulo CheckIn
@@ -2373,7 +2394,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 				const store = getStore();
 				const actions = getActions();
 				if (store.rut != "") {
-					fetch("http://localhost:3000/api/v1/serchRut/" + store.rut, {
+					fetch("http://" + store.url + "/api/v1/serchRut/" + store.rut, {
 						method: "GET",
 						headers: {
 							"Content-Type": "application/json",
@@ -2431,7 +2452,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 						};
 						sonToClassroom.push(son);
 						setStore({ sonToClassroom });
-						fetch("http://localhost:3000/api/v1/classroomPutAssintance/" + item.classroomId, {
+						fetch("http://" + store.url + "/api/v1/classroomPutAssintance/" + item.classroomId, {
 							method: "PUT",
 							body: JSON.stringify({
 								sonsInClassroom: newClassroom.sonsInClassroom + 1
@@ -2467,7 +2488,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					let hijos = store.hijos;
 					hijos.map(h => (h["fullClassroom"] = false));
 					console.log("retira al niño del array");
-					fetch("http://localhost:3000/api/v1/classroomPutAssintance/" + item.classroomId, {
+					fetch("http://" + store.url + "/api/v1/classroomPutAssintance/" + item.classroomId, {
 						method: "PUT",
 						body: JSON.stringify({
 							sonsInClassroom: newClassroom.sonsInClassroom - 1
@@ -2497,7 +2518,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			outCheckin: (e, item) => {
 				const store = getStore();
 				const actions = getActions();
-				fetch("http://localhost:3000/api/v1/currentClassroom", {
+				fetch("http://" + store.url + "/api/v1/currentClassroom", {
 					method: "POST",
 					body: JSON.stringify({
 						newClass: store.sonToClassroom
@@ -2527,7 +2548,9 @@ const getState = ({ getStore, setStore, getActions }) => {
 			logedEditRol: e => {
 				const store = getStore();
 				fetch(
-					"http://localhost:3000/api/v1/rolView/" +
+					"http://" +
+						store.url +
+						"/api/v1/rolView/" +
 						store.usuario.id +
 						"/" +
 						store.usuario.rut +
@@ -2612,7 +2635,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 			logedEditParent: e => {
 				const store = getStore();
-				fetch("http://localhost:3000/api/v1/parentView/" + store.usuario.id + "/" + store.usuario.email, {
+				fetch("http://" + store.url + "/api/v1/parentView/" + store.usuario.id + "/" + store.usuario.email, {
 					method: "PUT",
 					body: JSON.stringify({
 						name: store.usuario.name,
@@ -2692,7 +2715,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 				const store = getStore();
 				let foo = store.hijos.length;
 				console.log(foo);
-				fetch("http://localhost:3000/api/v1/classroomPutAssintance/" + store.usuarioLoged.classrooms._id, {
+				fetch("http://" + store.url + "/api/v1/classroomPutAssintance/" + store.usuarioLoged.classrooms._id, {
 					method: "PUT",
 					body: JSON.stringify({
 						sonsInClassroom: foo
@@ -2718,7 +2741,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			classroom: e => {
 				const store = getStore();
 				const actions = getActions();
-				fetch("http://localhost:3000/api/v1/currentClassroom/", {
+				fetch("http://" + store.url + "/api/v1/currentClassroom/", {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -2773,7 +2796,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			button: (item, i) => {
 				const actions = getActions();
 				const store = getStore();
-				fetch("http://localhost:3000/api/v1/currentClassroom/" + item._id, {
+				fetch("http://" + store.url + "/api/v1/currentClassroom/" + item._id, {
 					method: "PUT",
 					body: JSON.stringify({
 						button: true
@@ -2800,7 +2823,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			showBorder: (item, i) => {
 				const store = getStore();
 				const actions = getActions();
-				fetch("http://localhost:3000/api/v1/currentClassroom/" + item._id, {
+				fetch("http://" + store.url + "/api/v1/currentClassroom/" + item._id, {
 					method: "PUT",
 					body: JSON.stringify({
 						borderColor: "border-success",
@@ -2832,7 +2855,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			deleteCurrentClassroom: item => {
 				const actions = getActions();
 				const store = getStore();
-				fetch("http://localhost:3000/api/v1/currentClassroom/" + store.id, {
+				fetch("http://" + store.url + "/api/v1/currentClassroom/" + store.id, {
 					method: "DELETE",
 
 					headers: {
@@ -2890,7 +2913,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 				const actions = getActions();
 				if (store.checkOutHijos.length > 0) {
 					store.checkOutHijos.map(c => {
-						fetch("http://localhost:3000/api/v1/currentClassroom/" + c._id, {
+						fetch("http://" + store.url + "/api/v1/currentClassroom/" + c._id, {
 							method: "DELETE",
 
 							headers: {
@@ -2923,8 +2946,8 @@ const getState = ({ getStore, setStore, getActions }) => {
 					? (classes.className = classes.className.replace("toggled", ""))
 					: (classes.className += " toggled");
 			},
-			logout: (e, history) => {
-				localStorage.removeItem("ikids-store");
+			logout: async (e, history) => {
+				await localStorage.removeItem("ikids-store");
 				history.push("/");
 				setStore({
 					id: "",
@@ -3073,13 +3096,23 @@ const getState = ({ getStore, setStore, getActions }) => {
 					parentFamily: false,
 					checked: "",
 					registedFamily: false,
-					showRolParams: true
+					showRolParams: true,
+					userEdited: false,
+					existingRut: false,
+					existingRol: false,
+					reportar: false,
+					noClassroomAge: false,
+					betaTest: false,
+					disabledSaveParent: false,
+					maxParents: false,
+					verifyParent: false,
+					chooseRol: false
 				});
 			},
 			parentFamily: e => {
 				const store = getStore();
 				const actions = getActions();
-				fetch("http://localhost:3000/api/v1/parentEdit/" + store.usuarioLoged.family._id, {
+				fetch("http://" + store.url + "/api/v1/parentEdit/" + store.usuarioLoged.family._id, {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -3094,13 +3127,14 @@ const getState = ({ getStore, setStore, getActions }) => {
 						setStore({
 							parentFamily: true,
 							configCheckIn: false,
+							reportar: false,
 							addApoderado: true,
 							apoderados: data,
 							familyName: store.usuarioLoged.family.familyName,
 							familyId: store.usuarioLoged.family._id
 						});
 
-						fetch("http://localhost:3000/api/v1/sonEdit/" + store.usuarioLoged.family._id, {
+						fetch("http://" + store.url + "/api/v1/sonEdit/" + store.usuarioLoged.family._id, {
 							method: "GET",
 							headers: {
 								"Content-Type": "application/json",
@@ -3130,7 +3164,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 				e.preventDefault();
 				if (store.usuario.password === store.usuario.rPassword && store.usuario.password.length >= 8) {
 					const store = getStore();
-					fetch("http://localhost:3000/api/v1/rolEmail/" + store.usuario.email, {
+					fetch("http://" + store.url + "/api/v1/rolEmail/" + store.usuario.email, {
 						method: "GET",
 						headers: {
 							"Content-Type": "application/json"
@@ -3142,11 +3176,19 @@ const getState = ({ getStore, setStore, getActions }) => {
 						.then(data => {
 							console.log(data);
 							if (data.length > 0) {
-								setStore({ status: true });
+								setStore({
+									status: true,
+									successRecovery: false,
+									noEmail: false
+								});
 							} else {
 								actions.createParentSession();
 								history.push("/");
-								setStore({ registedFamily: true });
+								setStore({
+									registedFamily: true,
+									successRecovery: false,
+									noEmail: false
+								});
 							}
 						})
 						.catch(error => {
@@ -3160,7 +3202,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			createParentSession: e => {
 				const store = getStore();
 
-				fetch("http://localhost:3000/api/v1/parentSession", {
+				fetch("http://" + store.url + "/api/v1/parentSession", {
 					method: "POST",
 					body: JSON.stringify({
 						email: store.usuario.email,
@@ -3214,11 +3256,15 @@ const getState = ({ getStore, setStore, getActions }) => {
 					registedFamily: false,
 					noTeacherDayWork: false,
 					status: false,
-					betaTest: false
+					betaTest: false,
+					successRecovery: false,
+					noEmail: false,
+					usuario: { email: "" },
+					chooseRol: false
 				});
 			},
 			goRegister: (e, history) => {
-				fetch("http://localhost:3000/api/v1/limitedSesions/", {
+				fetch("http://" + store.url + "/api/v1/limitedSesions/", {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json"
@@ -3237,7 +3283,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 								registedFamily: false,
 								noTeacherDayWork: false,
 								status: false,
-								betaTest: false
+								betaTest: false,
+								successRecovery: false,
+								noEmail: false,
+								chooseRol: false
 							});
 						} else {
 							setStore({ betaTest: true });
@@ -3258,8 +3307,74 @@ const getState = ({ getStore, setStore, getActions }) => {
 					estadistica: false,
 					checkIn: false,
 					classroom: false,
-					configCheckIn: false
+					configCheckIn: false,
+					reportar: false
 				});
+			},
+			forgotPassword: (e, history) => {
+				const store = getStore();
+				const actions = getActions();
+				e.preventDefault();
+				if (store.usuario.rol != "Elige una opcion...") {
+					if (store.usuario.rol === "Servidor") {
+						actions.forgotPasswordServer(e, history);
+					} else {
+						actions.forgotPasswordParent(e, history);
+					}
+				} else {
+					setStore({ chooseRol: true });
+				}
+			},
+
+			forgotPasswordParent: (e, history) => {
+				const store = getStore();
+				fetch("http://" + store.url + "/api/v1/forgotPasswordParent/" + store.usuario.email, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json"
+					}
+				})
+					.then(resp => {
+						return resp.json();
+					})
+					.then(data => {
+						console.log(data);
+						if (data === false) {
+							setStore({ noEmail: true });
+						} else {
+							history.push("/");
+							setStore({ successRecovery: true, usuario: { email: "" }, chooseRol: false });
+						}
+					})
+					.catch(error => {
+						//error handling
+						console.log(error);
+					});
+			},
+			forgotPasswordServer: (e, history) => {
+				const store = getStore();
+				fetch("http://" + store.url + "/api/v1/forgotPasswordServer/" + store.usuario.email, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json"
+					}
+				})
+					.then(resp => {
+						return resp.json();
+					})
+					.then(data => {
+						console.log(data);
+						if (data === false) {
+							setStore({ noEmail: true });
+						} else {
+							history.push("/");
+							setStore({ successRecovery: true, usuario: { email: "" }, chooseRol: false });
+						}
+					})
+					.catch(error => {
+						//error handling
+						console.log(error);
+					});
 			}
 		}
 	};

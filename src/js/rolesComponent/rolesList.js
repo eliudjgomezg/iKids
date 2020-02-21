@@ -25,20 +25,19 @@ export class RolesList extends React.Component {
 											<div className="col-3   ">
 												<button
 													type="button"
-													className="btn btn-primary float-right mr-2 ml-2"
-													onClick={() => actions.indextodeleteClassroon2(item, i)}
-													data-toggle="modal"
-													data-target="#exampleModal">
-													Eliminar
-												</button>
-
-												<button
-													type="button"
 													className="btn btn-primary float-right"
 													data-toggle="modal"
 													data-target="#exampleModalScrollablexx"
 													onClick={() => actions.editRol(item, i)}>
 													Ver
+												</button>
+												<button
+													type="button"
+													className="btn btn-secondary float-right mr-2 ml-2"
+													onClick={() => actions.indextodeleteClassroon2(item, i)}
+													data-toggle="modal"
+													data-target="#exampleModal">
+													Eliminar
 												</button>
 											</div>
 										</div>

@@ -23,12 +23,13 @@ export class RolesForm extends React.Component {
 													name="name"
 													onChange={e => actions.handleChangeUsuario(e)}
 													required
+													maxLength="30"
 												/>
 											</div>
 											<div className="col pl-1">
 												<label htmlFor="exampleFormControlInput1">Rut</label>
 												<input
-													type="text"
+													type="number"
 													className="form-control"
 													id="exampleFormControlInput1"
 													value={store.usuario.rut}
@@ -65,6 +66,7 @@ export class RolesForm extends React.Component {
 															value={store.usuario.phone}
 															name="phone"
 															required
+															type="number"
 														/>
 													</div>
 												</div>
@@ -151,6 +153,9 @@ export class RolesForm extends React.Component {
 														value={store.usuario.startScheduleRank}
 														required
 														disabled={store.selectRol}
+														min="0"
+														max="24"
+														type="number"
 													/>
 												</div>
 												<div className="col pl-1">
@@ -166,6 +171,9 @@ export class RolesForm extends React.Component {
 														value={store.usuario.finalScheduleRank}
 														required
 														disabled={store.selectRol}
+														min="0"
+														max="24"
+														type="number"
 													/>
 												</div>
 											</div>

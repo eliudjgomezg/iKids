@@ -21,6 +21,8 @@ export class AddApoderado extends React.Component {
 												value={store.apoderado.parentName}
 												name="parentName"
 												required
+												maxLength="30"
+												type="text"
 											/>
 										</div>
 										<div className="row">
@@ -32,6 +34,7 @@ export class AddApoderado extends React.Component {
 												value={store.apoderado.rut}
 												name="rut"
 												required
+												type="number"
 											/>
 										</div>
 
@@ -59,6 +62,7 @@ export class AddApoderado extends React.Component {
 														value={store.apoderado.phone}
 														name="phone"
 														required
+														type="number"
 													/>
 												</div>
 											</div>
@@ -73,6 +77,7 @@ export class AddApoderado extends React.Component {
 												name="email"
 												value={store.apoderado.email}
 												required
+												type="email"
 											/>
 										</div>
 

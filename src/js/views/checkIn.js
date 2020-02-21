@@ -118,16 +118,14 @@ export class CheckIn extends React.Component {
 									{!!store.reportar && (
 										<div className="card card-body container mt-3">
 											<p className="text-center">
-												Estimado Usuari@, iKids se presenta como una version Beta o de prueba,
-												donde es necesario su testeo por parte del publico en general para la
-												correccion de errores que no es posible detectarlos en el ambiente
-												controlado de un laboratorio. Por esta razon te insto a que si detectas
-												algun error, describen cuando y como ocurrio. De ser posible envia
-												capturas de pantalla para ayudarnos a corregirlo a la brevedad posible.
-												Atentmente, Equipo de desarrollo iKids Version 1.0Beta
+												Hola, iKids se presenta temporalmente como una version de prueba y por
+												esta razon te insto a que si detectas algun error, describe cuando y
+												como ocurrio. De ser posible envia capturas de pantalla para ayudarnos a
+												corregirlo a la brevedad posible. Atentmente, Equipo de desarrollo iKids
 											</p>
+											<p className="text-center">iKids Version 1.0Beta</p>
 											<a className="btn btn-primary container" href="mailto:eliud@autobots.cl">
-												<p className="text-center">Reportar error</p>
+												Reportar error
 											</a>
 										</div>
 									)}

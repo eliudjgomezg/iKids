@@ -12,17 +12,21 @@
 		"dev": "nodemon app.js"
 	},
 	"author": {
-		"name": "Alejandro Sanchez",
-		"url": "http://alesanchezr.com/"
+		"name": "Eliud Gomez"
+	
 	},
 	"contributors": [
 		{
-			"name": "Alejandro Sanchez",
-			"url": "http://alesanchezr.com/"
+			"name": "Juliany de Gomez"
 		},
 		{
-			"name": "Ignacio Cordoba",
-			"url": "http://github.com/nachovz"
+			"name": "Alejandro Sanchez"
+		},
+		{
+			"name": "Magely Gomez"
+		},
+		{
+			"name": "Isaias Gomez"
 		}
 	],
 	"license": "ISC",
