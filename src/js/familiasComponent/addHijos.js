@@ -39,6 +39,23 @@ export class AddHijos extends React.Component {
 										</div>
 
 										<div className="row">
+											<label htmlFor="exampleFormControlSelect1">Seleccionar Genero</label>
+											<select
+												name="gender"
+												className="form-control"
+												id="exampleFormControlSelect1"
+												onChange={e => actions.handleChangeHijo(e)}>
+												<option value="Elige una opcion...">Elige una opcion...</option>
+												<option value="Femenino">
+													Femenino {!!(store.hijo.gender === "Femenino") && "Seleccionada"}
+												</option>
+												<option value="Masculino">
+													Masculino {!!(store.hijo.gender === "Masculino") && "Seleccionada"}
+												</option>
+											</select>
+										</div>
+
+										<div className="row">
 											<label htmlFor="exampleFormControlInput1">Observaciones:</label>
 											<textarea
 												className="form-control"
@@ -67,6 +84,13 @@ export class AddHijos extends React.Component {
 											</button>
 										</div>
 									</div>
+									{!!store.noGender && (
+										<div className="alert alert-danger mt-3">
+											<p className="text-center">
+												<strong>Debes elegir un genero </strong>
+											</p>
+										</div>
+									)}
 									{!!store.maxParents && (
 										<div className="alert alert-danger mt-3">
 											<p className="text-center">

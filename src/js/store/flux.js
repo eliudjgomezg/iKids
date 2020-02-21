@@ -37,6 +37,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			hijo: {
 				id: "",
 				sonName: "",
+				gender: "Elige una opcion...",
 				birthDate: "",
 				notes: "",
 				age: ""
@@ -206,6 +207,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 							selectedUsuarios: [],
 							capacity: "",
 							dayUse: "",
+							noGender: false,
 							startScheduleRank: "",
 							finalScheduleRank: "",
 							id: "",
@@ -278,6 +280,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 							novedadesArray: data,
 							familiasss: false,
 							addApoderado: false,
+							noGender: false,
 							familyOptions: false,
 							addHijo: false,
 							menu: false,
@@ -335,6 +338,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 							roles: false,
 							estadistica: false,
 							familias: data,
+							noGender: false,
 							familiasss: true,
 							familyLastName: false,
 							addApoderado: false,
@@ -394,6 +398,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 							familyOptions: false,
 							addHijo: false,
 							menu: false,
+							noGender: false,
 							editNewFamilia: false,
 							goBackNewFamily: false,
 							goBackEditFamily: false,
@@ -499,6 +504,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					disabledSaveParent: false,
 					maxParents: false,
 					verifyParent: false,
+					noGender: false,
 					usuario: {
 						id: store.usuarioLoged.id,
 						name: store.usuarioLoged.name,
@@ -866,6 +872,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					alertt: false,
 					disabledSaveParent: false,
 					verifyParent: false,
+					noGender: false,
 					maxParents: false
 				});
 			},
@@ -1081,96 +1088,104 @@ const getState = ({ getStore, setStore, getActions }) => {
 
 			setHijo: e => {
 				const store = getStore();
-				if (store.cardEdited) {
-					fetch("http://" + store.url + "/api/v1/sons", {
-						method: "POST",
-						body: JSON.stringify({
-							sonName: store.hijo.sonName,
-							birthDate: store.hijo.birthDate,
-							notes: store.hijo.notes,
-							families: store.familyId
-						}),
-						headers: {
-							"Content-Type": "application/json",
-							"access-token": store.usuarioLoged.token
-						}
-					})
-						.then(resp => {
-							//console.log(resp.ok); // will be true if the response is successfull
-							//console.log("estatus=", resp.status); // the status code = 200 or code = 400 etc.
-							//console.log(resp.text()); // will try return the exact result as string
-							return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
-						})
-						.then(data => {
-							//here is were your code should start after the fetch finishes
-							console.log(data);
-							if (data.status) {
-								setStore({
-									alertt: true,
-									startAgeRank: data.startAgeRank,
-									finaltAgeRank: data.finaltAgeRank
-								});
-							} else {
-								let hijos = store.hijos;
-								hijos.push(data);
-								setStore({
-									hijo: {
-										sonName: "",
-										birthDate: "",
-										notes: "",
-										families: ""
-									},
-									hijos
-								});
+				if (store.hijo.gender != "Elige una opcion..." || store.hijo.gender != "") {
+					if (store.cardEdited) {
+						fetch("http://" + store.url + "/api/v1/sons", {
+							method: "POST",
+							body: JSON.stringify({
+								sonName: store.hijo.sonName,
+								birthDate: store.hijo.birthDate,
+								notes: store.hijo.notes,
+								gender: store.hijo.gender,
+								families: store.familyId
+							}),
+							headers: {
+								"Content-Type": "application/json",
+								"access-token": store.usuarioLoged.token
 							}
+						})
+							.then(resp => {
+								//console.log(resp.ok); // will be true if the response is successfull
+								//console.log("estatus=", resp.status); // the status code = 200 or code = 400 etc.
+								//console.log(resp.text()); // will try return the exact result as string
+								return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+							})
+							.then(data => {
+								//here is were your code should start after the fetch finishes
+								console.log(data);
+								if (data.status) {
+									setStore({
+										alertt: true,
+										startAgeRank: data.startAgeRank,
+										finaltAgeRank: data.finaltAgeRank
+									});
+								} else {
+									let hijos = store.hijos;
+									hijos.push(data);
+									setStore({
+										hijo: {
+											sonName: "",
+											birthDate: "",
+											notes: "",
+											families: "",
+											gender: "Elige una opcion..."
+										},
+										hijos
+									});
+								}
 
-							//this will print on the console the exact object received from the server
-						})
-						.catch(error => {
-							//error handling
-							console.log(error);
-						});
-				} else {
-					fetch("http://" + store.url + "/api/v1/son/" + store.id, {
-						method: "PUT",
-						body: JSON.stringify({
-							sonName: store.hijo.sonName,
-							birthDate: store.hijo.birthDate,
-							notes: store.hijo.notes
-						}),
-						headers: {
-							"Content-Type": "application/json",
-							"access-token": store.usuarioLoged.token
-						}
-					})
-						.then(resp => {
-							return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
-						})
-						.then(data => {
-							//here is were your code should start after the fetch finishes
-							console.log(data);
-							if (data.status) {
-								setStore({
-									alertt: true,
-									startAgeRank: data.startAgeRank,
-									finaltAgeRank: data.finaltAgeRank
-								});
-							} else {
-								let hijos = store.hijos;
-								hijos[store.index] = data;
-								setStore({
-									hijo: {
-										sonName: "",
-										birthDate: "",
-										notes: ""
-									},
-									cardEdited: true,
-									id: "",
-									index: "",
-									hijos
-								});
+								//this will print on the console the exact object received from the server
+							})
+							.catch(error => {
+								//error handling
+								console.log(error);
+							});
+					} else {
+						fetch("http://" + store.url + "/api/v1/son/" + store.id, {
+							method: "PUT",
+							body: JSON.stringify({
+								sonName: store.hijo.sonName,
+								birthDate: store.hijo.birthDate,
+								notes: store.hijo.notes,
+								gender: store.hijo.gender
+							}),
+							headers: {
+								"Content-Type": "application/json",
+								"access-token": store.usuarioLoged.token
 							}
-						});
+						})
+							.then(resp => {
+								return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+							})
+							.then(data => {
+								//here is were your code should start after the fetch finishes
+								console.log(data);
+								if (data.status) {
+									setStore({
+										alertt: true,
+										startAgeRank: data.startAgeRank,
+										finaltAgeRank: data.finaltAgeRank
+									});
+								} else {
+									let hijos = store.hijos;
+									hijos[store.index] = data;
+									setStore({
+										hijo: {
+											sonName: "",
+											birthDate: "",
+											notes: "",
+											gender: "Elige una opcion..."
+										},
+										cardEdited: true,
+										id: "",
+										index: "",
+										hijos
+									});
+								}
+							});
+					}
+				} else {
+					setStore({ noGender: true });
 				}
 			},
 			verifySon: e => {
@@ -1204,7 +1219,8 @@ const getState = ({ getStore, setStore, getActions }) => {
 					hijo: {
 						sonName: item.sonName,
 						birthDate: item.birthDate,
-						notes: item.notes
+						notes: item.notes,
+						gender: item.gender
 					}
 				});
 			},
@@ -1224,6 +1240,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					existingRut: false,
 					disabledSaveParent: false,
 					verifyParent: false,
+					noGender: false,
 					maxParents: false
 				});
 			},
@@ -1446,6 +1463,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 							familyName: "",
 							apoderados: [],
 							hijos: [],
+							noGender: false,
 							goBackNewFamily: false,
 							goBackEditFamily: false
 						});
@@ -2052,6 +2070,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					apoderdos: [],
 					disabledSaveParent: false,
 					maxParents: false,
+					noGender: false,
 					verifyParent: false
 				});
 			},
@@ -2071,6 +2090,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					},
 					hijos: [],
 					apoderdos: [],
+					noGender: false,
 					alertt: false
 				});
 			},
@@ -2109,6 +2129,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 								notes: "",
 								families: ""
 							},
+							noGender: false,
 							apoderados: [],
 							hijos: [],
 							id: "",
@@ -2439,6 +2460,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 							notes: item.notes,
 							families: item.families,
 							age: item.age,
+							gender: item.gender,
 							classroomName: item.classroomName,
 							hBirthDate: item.hBirthDate,
 							parentPhone: item.parentPhone,
@@ -3131,6 +3153,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 							addApoderado: true,
 							apoderados: data,
 							familyName: store.usuarioLoged.family.familyName,
+							noGender: false,
 							familyId: store.usuarioLoged.family._id
 						});
 
@@ -3307,8 +3330,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					estadistica: false,
 					checkIn: false,
 					classroom: false,
-					configCheckIn: false,
-					reportar: false
+					configCheckIn: false
 				});
 			},
 			forgotPassword: (e, history) => {

@@ -91,6 +91,7 @@ export class Admin extends React.Component {
 									{!!store.familiass && <Familias />}
 									{!!store.roles && <Roles />}
 									{!!store.estadistica && <Estadistica />}
+
 									{!!store.reportar && (
 										<div className="card card-body container mt-3">
 											<p className="text-center">
